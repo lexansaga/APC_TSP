@@ -366,4 +366,13 @@ p i:hover
       {
           margin: 12px 0 0 0;
       }
+
+      
+  @media  screen and (max-width :  425px) 
+  {
+    .navbar div h2
+    {
+        display: none;
+    }
+  }
   } 
