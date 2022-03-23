@@ -1,4 +1,8 @@
 $(document).ready(function () {
+
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
     var table = $('#table').DataTable({
         "createdRow": (row, data, dataIndex) => {
             var num = data[1]
@@ -60,7 +64,19 @@ $(document).ready(function () {
 
         dom: 'Bfrtip',
         buttons: [
-            'excelHtml5', 'pdfHtml5', 'csvHtml5'
+            {
+                extend: 'excelHtml5',
+                title: 'STP Report_' + date
+            },
+            {
+                extend: 'pdfHtml5',
+                title: 'STP Report_' + date
+            },
+            {
+                
+                extend: 'csvHtml5',
+                title: 'STP Report_' + date
+            }
         ]
     });
     var table2 = $('#table2').DataTable(
@@ -125,8 +141,20 @@ $(document).ready(function () {
     
             dom: 'Bfrtip',
             buttons: [
-                'excelHtml5', 'pdfHtml5', 'csvHtml5'
-            ] 
+                {
+                    extend: 'excelHtml5',
+                    title: 'STP Report_' + date
+                },
+                {
+                    extend: 'pdfHtml5',
+                    title: 'STP Report_' + date
+                },
+                {
+                    
+                    extend: 'csvHtml5',
+                    title: 'STP Report_' + date
+                }
+            ]
         });
     var data = table.row(':last-child').data();
     var temps = data[1];
