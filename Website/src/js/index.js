@@ -63,7 +63,71 @@ $(document).ready(function () {
             'excelHtml5', 'pdfHtml5', 'csvHtml5'
         ]
     });
-
+    var table2 = $('#table2').DataTable(
+        {
+            "createdRow": (row, data, dataIndex) => {
+                var num = data[1]
+                var lowestNum = num > data[1] ? data[1] : num
+                if (data[2] > 6.44) {
+    
+                    $(row).find('td:eq(2)').css({
+                        'background-color': '#e63946',
+                        "color": "white"
+                    });
+    
+                    $(`.alert-wlevel .alert-container`).prepend(`<div class="alert-content">
+              <div>
+              <i class='bx bxs-error' ></i>
+              <p class="error-text"> High Water Level : ${data[2]} </p>    
+          </div>
+          <p class="error-time"> ${data[3]}</p>
+             </div>`)
+                }
+                if (data[1] > 65) {
+                    $(row).find('td:eq(1)').css({
+                        'background-color': '#e63946',
+                        "color": "white"
+                    });
+    
+                    $(`.alert-temp  .alert-container`).prepend(`<div class="alert-content">
+                <div>
+                <i class='bx bxs-error' ></i>
+                <p class="error-text"> High Temperature : ${data[1]} </p>    
+            </div>
+            <p class="error-time"> ${data[3]}</p>
+        </div>`)
+                } else if (data[1] < 53) {
+                    //style="background-color:#5c9ef5"
+                    $(row).find('td:eq(1)').css({
+                        'background-color': '#5c9ef5',
+                        "color": "white"
+                    });
+    
+                    $(`.alert-temp  .alert-container`).prepend(`<div class="alert-content"  >
+                <div>
+                <i class='bx bxs-error' ></i>
+                <p class="error-text"> Low Temperature : ${data[1]} </p>    
+            </div>
+            <p class="error-time"> ${data[3]}</p>
+        </div>`)
+                } else {
+    
+                }
+    
+    
+    
+    
+    
+            },
+            "order": [
+                [3, "desc"]
+            ],
+    
+            dom: 'Bfrtip',
+            buttons: [
+                'excelHtml5', 'pdfHtml5', 'csvHtml5'
+            ] 
+        });
     var data = table.row(':last-child').data();
     var temps = data[1];
     var waterLevel = data[2]
@@ -93,6 +157,9 @@ $(document).ready(function () {
 
     // alert(firstTemp)
     // alert(firstWaterLevel)
+    if(temps != "" && waterLevel != "")
+    {
+            
     $('.notification').css({
         "display": "flex"
     })
@@ -108,6 +175,8 @@ $(document).ready(function () {
             "display": "none"
         })
     })
+    }
+
 
 
     const gaugeElement = document.querySelector(".gauge");

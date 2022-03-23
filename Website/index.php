@@ -19,7 +19,7 @@
         <nav class="navbar">
             <div class="logo-container">
                 <img src="src/assets/apc%20logo.png" class="logo"/>
-                <h2> APC TSP Monitoring System </h2>
+                <h2> APC STP Monitoring System </h2>
             </div>
             <ul class="items">
                 <li  id="logout"><a href="login-page.php">Logout</a>  </li>
@@ -104,7 +104,43 @@
                 </tbody>
             </table>
         </div>
+        
 
+        <div class="tables card">
+            <h4>
+                Table (5 Mins Interval)
+            </h4>
+            <table id="table2" class="stripe row-border">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Temperature</th>
+                        <th>Water Level</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                        $query="SELECT ID, Temperature,WaterLevel, DATE_FORMAT( MIN(Date), '%d/%m/%Y %H:%i:00' ) AS Date FROM fboglatest GROUP BY ROUND(UNIX_TIMESTAMP(Date) / 300);";
+                        $result=mysqli_query($connect,$query);
+                            while($row=mysqli_fetch_assoc($result)) 
+                        { 
+                        ?> 
+                    <tr>
+                        <td><?php echo $row['ID']; ?></td>
+                        <td><?php echo $row['Temperature']; ?></td>
+                        <td><?php echo $row['WaterLevel']; ?></td>
+                        <td><?php 
+                            echo $row['Date']
+                            //    $date = new DateTime($row['Date']);
+                            //   $date =  $date->format('jS M Y');?></td>
+                    </tr>
+                    <?php
+                        }
+                        ?>
+                </tbody>
+            </table>
+        </div>
 
         <div class="notification">
         
